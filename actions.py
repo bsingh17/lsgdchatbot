@@ -165,7 +165,7 @@ class ActionHelloWorld(FormAction):
           pinnumber=tracker.get_slot("pinnumber")
           phone_number=tracker.get_slot("phone_number")
           mailid=tracker.get_slot("mailid")
-          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar UID:"+Aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
+          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar:"+Aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
           saveFile = open("some.txt", 'a')
           saveFile.write(message)
           saveFile.close()
