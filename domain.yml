@@ -1,0 +1,124 @@
+intents:
+  - greet
+  - goodbye
+  - name_entry
+  - aadhaarcardno
+  - mail_id
+  - phonenumber
+  - states
+  - district
+  - city
+  - postoffice
+  - village
+  - munipanchcorp
+  - pincode
+  - thankyou
+
+entities:
+ - name
+ - mailid
+ - aadhaar
+ - phone_number
+ - state
+ - districtname
+ - cityname
+ - postofficename
+ - villagename
+ - muncorppanchname
+ - pinnumber
+
+
+slots:
+  name:
+   type: unfeaturized
+  mailid:
+   type: unfeaturized
+  aadhaar:
+   type: unfeaturized
+  phone_number:
+    type: unfeaturized  
+  statename:
+    type: unfeaturized 
+  districtname:
+    type: unfeaturized 
+  cityname:
+    type: unfeaturized
+  postofficename:
+    type: unfeaturized
+  villagename:
+    type: unfeaturized
+  muncorppanchname:
+    type: unfeaturized
+  pinnumber:
+    type: unfeaturized
+
+
+forms:
+ - admission_form
+
+responses:
+  utter_greet:
+  - text: "Hi I am your LSGD service assistant"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_ask_name:
+  - text: "Your name please"
+
+  utter_ask_mailid:
+  - text: "Enter your mailid"
+
+  utter_ask_aadhaar:
+  - text: "Please enter your aadhaar UID"
+
+  utter_ask_phonenumber:
+  - text: "Please enter your phone number"
+
+  utter_ask_statename:
+  - text: "Please enter your state"
+
+  utter_ask_districtname:
+  - text: "Please enter your district"
+
+  utter_ask_cityname:
+  - text: "Please enter your city"
+
+  utter_ask_postoffice:
+  - text: "Please enter your postoffice"
+
+  utter_ask_village:
+  - text: "Please enter your villagename"
+
+  utter_ask_muni:
+  - text: "Please enter your panchayath/municipality/corporation"
+
+  utter_ask_pinnumber:
+  - text: "Please enter your pincode"
+
+  utter_submit:
+    - text: "All done!"
+
+  utter_wrong_ssn:
+    - text: "Social security number must be of 6 digit only"
+
+  utter_ask_feedback:
+    - text: "please submit your issues and suggestions .I am ready to help you anytime"  
+
+  utter_slots_values:
+    - text: "I am gonna forward your feedback with these details:\n
+             - name: {name}\n
+             - aadhaar:{aadhaar}\n
+             - state:{statename}\n
+             - districtname:{districtname}\n
+             - cityname:{cityname}\n
+             - postofficename:{postofficename}\n
+             - villagename:{villagename}\n
+             - muncorppanchname:{muncorppanchname}\n
+             - pinnumber:{pinnumber}\n
+             - phone_number: {phone_number}\n
+             - mailid: {mailid}"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
