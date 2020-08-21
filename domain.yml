@@ -102,6 +102,12 @@ responses:
   utter_wrong_phonenumber:
     - text: "phone number number must be of 10 digits"
 
+  utter_wrong_aadhaaralpha:
+    - text: "aadhaar umber must be of digit only"
+
+  utter_wrong_aadhaar:
+    - text: "phone number number must be of 12 digits"
+
   utter_wrong_pinalpha:
     - text: "pin number number must be of digit only"
 
