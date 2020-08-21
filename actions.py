@@ -68,6 +68,16 @@ def redirectToSlot(slot, value, dispatcher, tracker, remapping):
         else:
             dispatcher.utter_message(template="utter_wrong_emailid")
             response = {slot: None}
+    elif (slot == "aadhaar"):
+        if len(value) == 12:
+            if(value.isdigit()):
+                response = {slot: value}
+            else:
+                dispatcher.utter_message(template="utter_wrong_aadhaaralpha")
+                response = {slot: None}  
+        else:
+            dispatcher.utter_message(template="utter_wrong_aadhaar")
+            response = {slot: None}
     elif (slot == "phone_number"):
         if len(value) == 10:
             if(value.isdigit()):
@@ -96,7 +106,7 @@ class ActionHelloWorld(FormAction):
      def required_slots(tracker: Tracker) -> List[Text]:
         """A list of required slots that the form has to fill"""
     
-        return ["name",  "aadhaar", "statename","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
+        return ["name","mailid", "aadhaar", "statename","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
 
 
      def validate_phone_number(
