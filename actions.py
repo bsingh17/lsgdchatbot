@@ -95,7 +95,6 @@ def redirectToSlot(slot, value, dispatcher, tracker, remapping):
 
 
 
-
 class ActionHelloWorld(FormAction):
 
      def name(self) -> Text:
@@ -156,7 +155,7 @@ class ActionHelloWorld(FormAction):
              domain: Dict[Text, Any],
      ) -> List[Dict]:
           name=tracker.get_slot("name")
-          aadhaar=tracker.get_slot("aadhaar")
+          Aadhaar=tracker.get_slot("aadhaar")
           statename=tracker.get_slot("statename")
           districtname=tracker.get_slot("districtname")
           cityname=tracker.get_slot("cityname")
@@ -166,7 +165,7 @@ class ActionHelloWorld(FormAction):
           pinnumber=tracker.get_slot("pinnumber")
           phone_number=tracker.get_slot("phone_number")
           mailid=tracker.get_slot("mailid")
-          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar UID:"+aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
+          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar UID:"+Aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
           saveFile = open("some.txt", 'a')
           saveFile.write(message)
           saveFile.close()
