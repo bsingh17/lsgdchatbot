@@ -96,6 +96,22 @@ responses:
   utter_ask_pinnumber:
   - text: "Please enter your pincode"
 
+  utter_wrong_phonenumberalpha:
+    - text: "phone number number must be of digit only"
+
+  utter_wrong_phonenumber:
+    - text: "phone number number must be of 10 digits"
+
+  utter_wrong_pinalpha:
+    - text: "pin number number must be of digit only"
+
+  utter_wrong_pinnumber:
+    - text: "pin number number must be of 6 digits"
+
+  utter_wrong_emailid:
+    - text: "invalid email!"
+
+
   utter_submit:
     - text: "All done!"
 
