@@ -105,7 +105,7 @@ class ActionHelloWorld(FormAction):
      def required_slots(tracker: Tracker) -> List[Text]:
         """A list of required slots that the form has to fill"""
     
-        return ["name","mailid", "aadhaar", "statename","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
+        return ["name","mailid", "aadhaar", "state","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
 
 
      def validate_phone_number(
@@ -156,7 +156,7 @@ class ActionHelloWorld(FormAction):
      ) -> List[Dict]:
           name=tracker.get_slot("name")
           Aadhaar=tracker.get_slot("aadhaar")
-          statename=tracker.get_slot("statename")
+          state=tracker.get_slot("state")
           districtname=tracker.get_slot("districtname")
           cityname=tracker.get_slot("cityname")
           postofficename=tracker.get_slot("postofficename")
@@ -165,7 +165,7 @@ class ActionHelloWorld(FormAction):
           pinnumber=tracker.get_slot("pinnumber")
           phone_number=tracker.get_slot("phone_number")
           mailid=tracker.get_slot("mailid")
-          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar:"+Aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
+          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar:"+Aadhaar+"\n"+"state:"+state+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
           saveFile = open("some.txt", 'a')
           saveFile.write(message)
           saveFile.close()
