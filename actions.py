@@ -12,7 +12,7 @@ from typing import Any, Text, Dict, List, Union
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
-
+import re
 #
 # class ActionHelloWorld(Action):
 #
@@ -48,11 +48,48 @@ from rasa_sdk.forms import FormAction
 #          dispatcher.utter_message(template="utter_submit")
 # 
 #          return []
+def redirectToSlot(slot, value, dispatcher, tracker, remapping):
+    response = {slot: value} # default response
+
+    if (slot == "pinnumber"):
+        if len(value) == 6:
+            if(value.isdigit()):
+                response = {slot: value}
+            else:
+                dispatcher.utter_message(template="utter_wrong_pinalpha")
+                response = {slot: None}  
+        else:
+            dispatcher.utter_message(template="utter_wrong_pinnumber")
+            response = {slot: None}
+    elif (slot == "mailid"):
+        regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if(re.search(regex, value)):
+            response = {slot: value}
+        else:
+            dispatcher.utter_message(template="utter_wrong_emailid")
+            response = {slot: None}
+    elif (slot == "phone_number"):
+        if len(value) == 10:
+            if(value.isdigit()):
+                response = {slot: value}
+            else:
+                dispatcher.utter_message(template="utter_wrong_phonenumberalpha")
+                response = {slot: None}  
+        else:
+            dispatcher.utter_message(template="utter_wrong_phonenumber")
+            response = {slot: None}
+    if (type(remapping) == str):
+        response[remapping] = None
+
+    return response
+
+
+
 
 class ActionHelloWorld(FormAction):
 
      def name(self) -> Text:
-         return "admission_form"
+        return "admission_form"
      
 
      @staticmethod
@@ -62,7 +99,7 @@ class ActionHelloWorld(FormAction):
         return ["name",  "aadhaar", "statename","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
 
 
-    def validate_phone_number(
+     def validate_phone_number(
         self,
         value: Text,
         dispatcher: CollectingDispatcher,
@@ -83,7 +120,7 @@ class ActionHelloWorld(FormAction):
         else:
             return redirectToSlot('phone_number', value, dispatcher, tracker, None)
 
-    def validate_mailid(
+     def validate_mailid(
         self,
         value: Text,
         dispatcher: CollectingDispatcher,
@@ -119,13 +156,9 @@ class ActionHelloWorld(FormAction):
           pinnumber=tracker.get_slot("pinnumber")
           phone_number=tracker.get_slot("phone_number")
           mailid=tracker.get_slot("mailid")
-          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone Number:"+phone_number+"\n"+
-          "Aadhaar UID:"+aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
+          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone_nuumber:"+phone_number+"\n"+"Aadhaar UID:"+aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
           saveFile = open("some.txt", 'a')
           saveFile.write(message)
           saveFile.close()
           dispatcher.utter_message(message)
           return []
-         dispatcher.utter_message(template="utter_submit")
-
-         return []
