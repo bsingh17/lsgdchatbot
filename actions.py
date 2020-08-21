@@ -58,25 +58,74 @@ class ActionHelloWorld(FormAction):
      @staticmethod
      def required_slots(tracker: Tracker) -> List[Text]:
         """A list of required slots that the form has to fill"""
-        
-        print("required_slots(tracker: Tracker)")
+    
         return ["name",  "aadhaar", "statename","districtname",  "cityname", "postofficename","villagename",  "muncorppanchname", "pinnumber","phone_number","mailid"]
 
-     def slot_mappings(self) -> Dict[Text, Union[Dict, List[Dict]]]:
-        """A dictionary to map required slots to
-            - an extracted entity
-            - intent: value pairs
-            - a whole message
-            or a list of them, where a first match will be picked"""
-        print("slot_mappings(self) ")
 
-        return []
+    def validate_phone_number(
+        self,
+        value: Text,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+     ) -> Dict[Text, Any]:
+        """Validate phone."""
+        value=tracker.get_slot("phone_number")
+
+        print("validate_phone_number() method  ", value)
+
+        requestedSlot = tracker.get_last_event_for("slot", skip=1)
+        if (requestedSlot['name'] == 'requested_slot'):
+            if (requestedSlot['value'] == 'phone_number'): # If requested slot was phone_number and value also corresponds to the phone_number 
+                return redirectToSlot(requestedSlot['value'], value, dispatcher, tracker, None)
+            else: # If value corresponds to the wrong slot
+                return redirectToSlot(requestedSlot['value'], value, dispatcher, tracker, 'phone_number')
+        else:
+            return redirectToSlot('phone_number', value, dispatcher, tracker, None)
+
+    def validate_mailid(
+        self,
+        value: Text,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+     ) -> Dict[Text, Any]:
+        """Validate mailid."""
+        value=tracker.get_slot("mailid")
+
+        print("validate_mailid() method", value)
+
+        requestedSlot = tracker.get_last_event_for("slot", skip=1)
+        if (requestedSlot['name'] == 'requested_slot' and requestedSlot['value']):
+            if (requestedSlot['value'] == 'mailid'): # If requested slot was mailid and value also corresponds to the mailid 
+                return redirectToSlot(requestedSlot['value'], value, dispatcher, tracker, None)
+            else: # If value corresponds to the wrong slot
+                return redirectToSlot(requestedSlot['value'], value, dispatcher, tracker, 'mailid')
+        else:
+            return redirectToSlot('mailid', value, dispatcher, tracker, None)
 
      def submit(self, dispatcher: CollectingDispatcher,
              tracker: Tracker,
              domain: Dict[Text, Any],
      ) -> List[Dict]:
-
+          name=tracker.get_slot("name")
+          aadhaar=tracker.get_slot("aadhaar")
+          statename=tracker.get_slot("statename")
+          districtname=tracker.get_slot("districtname")
+          cityname=tracker.get_slot("cityname")
+          postofficename=tracker.get_slot("postofficename")
+          villagename=tracker.get_slot("villagename")
+          muncorppanchname=tracker.get_slot("muncorppanchname")
+          pinnumber=tracker.get_slot("pinnumber")
+          phone_number=tracker.get_slot("phone_number")
+          mailid=tracker.get_slot("mailid")
+          message="USER DETAILS:"+"\n\n"+"Name:"+name+"\n"+"Email:"+mailid+"\n"+"Phone Number:"+phone_number+"\n"+
+          "Aadhaar UID:"+aadhaar+"\n"+"statename:"+statename+"\n"+"districtname:"+districtname+"\n"+"Thanks! for sharing the information."
+          saveFile = open("some.txt", 'a')
+          saveFile.write(message)
+          saveFile.close()
+          dispatcher.utter_message(message)
+          return []
          dispatcher.utter_message(template="utter_submit")
 
          return []
